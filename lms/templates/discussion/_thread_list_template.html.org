@@ -1,0 +1,42 @@
+<%! from django.utils.translation import ugettext as _ %>
+<script type="text/template" id="thread-list-template">
+
+    <div class="browse-search">
+        <div class="browse" style="background-color:transparent;">
+          <a href="#" class="f_button secondary expand split button" style="margin-bottom:0; padding-left:0.5rem; padding-right:3rem;">
+            <p class="current-board" style="margin-bottom:0; line-height:1rem;">${_("Show All Discussions")}</p>
+            <span class="browse-dropdown" data-dropdown="browse-topic-filter-dropdown" style="width:2.4rem;"></span>
+          </a>
+        </div>
+        <%include file="_filter_dropdown.html" />
+        <div class="search">
+            <form class="post-search">
+                <label class="sr" for="search-discussions">${_("Search")}</label>
+                <input type="text" id="search-discussions" placeholder="${_("Search all discussions")}" class="post-search-field">
+            </form>
+        </div>
+    </div>
+    <div class="sort-bar">
+        <span class="sort-label" id="sort-label">${_("Sort by:")}</span>
+        <ul role="radiogroup" aria-labelledby="sort-label">
+            <li><a href="#" role="radio" aria-checked="true" class="active" data-sort="date">${_("date")}</a></li>
+            <li><a href="#" role="radio" aria-checked="false" data-sort="votes">${_("votes")}</a></li>
+            <li><a href="#" role="radio" aria-checked="false" data-sort="comments">${_("comments")}</a></li>
+        </ul>
+
+
+        %if is_course_cohorted and is_moderator:
+        <span class="group-filter-label cohort">${_("Show:")}</span>
+            <select class="group-filter-select cohort-options cohort">
+                <option value="all">${_("View All")}</option>
+                    %for c in cohorts:
+                        <option value="${c.id}">${_("View as {name}").format(name=c.name)}</option>
+                    %endfor
+            </select>
+        %endif
+    </div>
+    <div class="post-list-wrapper">
+        <ul class="post-list">
+        </ul>
+    </div>
+</script>

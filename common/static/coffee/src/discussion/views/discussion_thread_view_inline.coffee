@@ -45,6 +45,7 @@ if Backbone?
 
     expandPost: (event) =>
       @$el.addClass('expanded')
+      #@$el.find('.post-body').html(@model.get('body'))
       @$el.find('.post-body').html(_.escape(@model.get('body')))
       @showView.convertMath()
       @$el.find('.expand-post').css('display', 'none')
@@ -60,6 +61,7 @@ if Backbone?
       if postTop < curScroll
         $('html, body').animate({scrollTop: postTop})
       @$el.removeClass('expanded')
+      #@$el.find('.post-body').html(@model.get('abbreviatedBody'))
       @$el.find('.post-body').html(_.escape(@model.get('abbreviatedBody')))
       @showView.convertMath()
       @$el.find('.expand-post').css('display', 'block')
